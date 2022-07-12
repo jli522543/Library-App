@@ -15,6 +15,12 @@ function addBooktoLibrary(title, author, pages, hasRead) {
   myLibrary.push(new Book(title, author, pages, hasRead));
 }
 
+function removeBook(event){
+  const index = event.target.parentElement.dataset.index
+  myLibrary.splice(index, 1)
+  event.target.parentElement.remove()
+}
+
 function displayBookCard() {
   const book = myLibrary.at(-1);
 
@@ -23,15 +29,19 @@ function displayBookCard() {
   const bookAuthor = document.createElement("h3");
   const bookPages = document.createElement("h3");
   const bookHasRead = document.createElement("h3");
-
+  const trashIcon = document.createElement('i')
+  
   bookCard.classList.add("card");
+  trashIcon.classList.add("fa-solid", "fa-trash", 'fa-2x', "trash--icon")
+  trashIcon.setAttribute('id', 'trash-icon')
+  trashIcon.setAttribute('onclick', 'removeBook(event)')
 
   bookTitle.textContent = book.title;
   bookAuthor.textContent = book.author;
   bookPages.textContent = book.pages;
   bookHasRead.textContent = book.hasRead ? "Read" : "Not Read";
 
-  bookCard.append(bookTitle, bookAuthor, bookPages, bookHasRead);
+  bookCard.append(trashIcon, bookTitle, bookAuthor, bookPages, bookHasRead);
   bookContainer.append(bookCard);
 }
 
