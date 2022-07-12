@@ -15,10 +15,22 @@ function addBooktoLibrary(title, author, pages, hasRead) {
   myLibrary.push(new Book(title, author, pages, hasRead));
 }
 
-function removeBook(event){
-  const index = event.target.parentElement.dataset.index
-  myLibrary.splice(index, 1)
-  event.target.parentElement.remove()
+function removeBook(event) {
+  const bookCard = event.target.parentElement;
+  const index = Array.from(bookCard.parentElement.children).indexOf(bookCard);
+  myLibrary.splice(index, 1);
+  event.target.parentElement.remove();
+}
+
+function toggleRead(event) {
+  const bookCard = event.target.parentElement;
+  const index = Array.from(bookCard.parentElement.children).indexOf(bookCard);
+
+  myLibrary[index].hasRead = !myLibrary[index].hasRead;
+  event.target.style.backgroundColor = myLibrary[index].hasRead
+    ? "green"
+    : "red";
+  event.target.textContent = myLibrary[index].hasRead ? "Read" : "Not Read";
 }
 
 function displayBookCard() {
@@ -28,20 +40,23 @@ function displayBookCard() {
   const bookTitle = document.createElement("h2");
   const bookAuthor = document.createElement("h3");
   const bookPages = document.createElement("h3");
-  const bookHasRead = document.createElement("h3");
-  const trashIcon = document.createElement('i')
-  
+  const bookHasRead = document.createElement("button");
+  const trashIcon = document.createElement("i");
+
   bookCard.classList.add("card");
-  trashIcon.classList.add("fa-solid", "fa-trash", 'fa-2x', "trash--icon")
-  trashIcon.setAttribute('id', 'trash-icon')
-  trashIcon.setAttribute('onclick', 'removeBook(event)')
+  bookHasRead.classList.add("btn");
+  bookHasRead.setAttribute("onclick", "toggleRead(event)");
+  trashIcon.classList.add("fa-solid", "fa-trash", "fa-2x", "trash--icon");
+  trashIcon.setAttribute("id", "trash-icon");
+  trashIcon.setAttribute("onclick", "removeBook(event)");
 
   bookTitle.textContent = book.title;
   bookAuthor.textContent = book.author;
   bookPages.textContent = book.pages;
+  bookHasRead.style.backgroundColor = book.hasRead ? "green" : "red";
   bookHasRead.textContent = book.hasRead ? "Read" : "Not Read";
 
-  bookCard.append(trashIcon, bookTitle, bookAuthor, bookPages, bookHasRead);
+  bookCard.append(bookTitle, bookAuthor, bookPages, bookHasRead, trashIcon);
   bookContainer.append(bookCard);
 }
 
@@ -63,8 +78,7 @@ submitButton.addEventListener("click", (event) => {
   const author = addBookForm.querySelector("#author").value;
   const pages = addBookForm.querySelector("#pages").value;
   const hasRead = addBookForm.querySelector("#hasRead").checked;
-  //   addBooktoLibrary(title, author, pages, hasRead);
-  addBooktoLibrary("The Hobbit", "Tolkien", 500, true);
+  addBooktoLibrary(title, author, pages, hasRead);
   displayBookCard();
   addBookForm.reset();
 });

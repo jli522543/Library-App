@@ -7,18 +7,13 @@ html {
   font-size: 62.5%;
 }
 
-body{
+body {
   margin: 0;
 }
 
 /* Universal */
-.flex-column{
-  display: flex;
-  flex-direction: column;
-  padding: 1rem 2rem;
-}
 
-.block{
+.block {
   display: block;
 }
 
@@ -28,7 +23,7 @@ h3 {
   font-weight: 400;
 }
 
-h1{
+h1 {
   font-size: 3rem;
   margin: 0;
 }
@@ -44,7 +39,7 @@ h3 {
 }
 
 /* Navbar */
-.navbar{
+.navbar {
   box-shadow: 0 3px 3px #ccc;
   padding: 2rem 2rem;
   margin-bottom: 2rem;
@@ -52,8 +47,15 @@ h3 {
   align-items: center;
 }
 
-.navbar--icon{
-  margin-right: .5rem;
+.navbar--icon {
+  margin-right: 0.5rem;
+}
+
+/* Main */
+main {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem 2rem;
 }
 
 /* Form */
@@ -65,7 +67,6 @@ h3 {
 #add-book-form {
   font-size: 2rem;
 }
-
 
 input {
   margin-bottom: 1rem;
@@ -88,11 +89,11 @@ input {
   color: white;
 }
 
-.btn:hover{
+.btn:hover {
   cursor: pointer;
 }
 
-.btn:active{
+.btn:active {
   box-shadow: inset 2px 2px black;
 }
 
@@ -105,11 +106,38 @@ input {
   margin-bottom: 2rem;
 }
 
-.fa-trash{
-  transition: transform .15s;
+/* Icons */
+.fa-trash {
+  transition: transform 0.15s;
+  margin-left: 2rem;
 }
 
-.fa-trash:hover{
+.fa-trash:hover {
   transform: scale(1.2) rotate(-15deg);
   cursor: pointer;
+}
+
+/* Media queries */
+@media screen and (min-width: 600px) {
+  #book-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: 2rem;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  #book-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    column-gap: 2rem;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  #book-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    column-gap: 2rem;
+  }
 }
